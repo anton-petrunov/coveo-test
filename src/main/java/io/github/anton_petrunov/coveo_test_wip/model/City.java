@@ -17,8 +17,28 @@ public class City {
         this.admin1 = admin1;
     }
 
+    public Integer getGeoNameId() {
+        return geoNameId;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getAdmin1() {
+        return admin1;
     }
 
     @Override
