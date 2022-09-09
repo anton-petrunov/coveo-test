@@ -1,6 +1,8 @@
 package io.github.anton_petrunov.coveo_test_wip.repository;
 
 import io.github.anton_petrunov.coveo_test_wip.model.City;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
@@ -10,14 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static io.github.anton_petrunov.coveo_test_wip.Main.parse;
-
 @Repository
 public class InMemoryCityRepository {
 
     private static final String TSV_PATH = "cities_canada-usa.tsv";
 
     private final List<City> cities = new ArrayList<>();
+
+    private static final Logger log = LoggerFactory.getLogger(InMemoryCityRepository.class);
 
     {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(TSV_PATH))) {
@@ -30,15 +32,21 @@ public class InMemoryCityRepository {
         }
     }
 
-    public List<City> getCitiesPartialMatchingNames(String searchBody) {
+    public List<City> findByPartOfName(String name) {
+        log.info("findByPartOfName '{}'", name);
         return cities.stream()
-                .filter(city -> city.getName().toLowerCase().contains(searchBody.toLowerCase()))
+                .filter(city -> city.getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
     }
 
-    public List<City> getCitiesCompleteMatchingNames(String searchBody) {
-        return cities.stream()
-                .filter(city -> city.getName().toLowerCase().matches(searchBody.toLowerCase()))
-                .collect(Collectors.toList());
+    private City parse(final String line) {
+        String[] elements = line.split("\t");
+        return new City(
+                Integer.parseInt(elements[0]),
+                elements[1],
+                Float.parseFloat(elements[4]),
+                Float.parseFloat(elements[5]),
+                elements[8],
+                elements[10]);
     }
 }
