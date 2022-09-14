@@ -1,8 +1,14 @@
 package io.github.anton_petrunov.coveo_test_wip.to;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+@JsonPropertyOrder(value = {"name", "latitude", "longitude", "score"})
+@JsonIgnoreProperties(value = {"geoNameId", "nameScore", "distanceScore", "distanceKm", "country", "admin1", "shortName"})
 public class CityTo {
     private final Integer geoNameId;
-    private final String name;
+    private final String shortName;
     private Float nameScore;
     private final Float latitude;
     private final Float longitude;
@@ -12,13 +18,14 @@ public class CityTo {
     private Float distanceScore;
     private Float score;
 
-    public CityTo(Integer geoNameId, String name, Float latitude, Float longitude, String country, String admin1) {
-        this(geoNameId, name, 0F, latitude, longitude, country, admin1, 0F, 0F, 0F);
+    public CityTo(Integer geoNameId, String shortName, Float latitude, Float longitude, String country, String admin1) {
+        this(geoNameId, shortName, 0F, latitude, longitude, country, admin1, 0F, 0F, 0F);
     }
 
-    public CityTo(Integer geoNameId, String name, Float nameScore, Float latitude, Float longitude, String country, String admin1, Float distanceKm, Float distanceScore, Float score) {
+    public CityTo(Integer geoNameId, String shortName, Float nameScore, Float latitude, Float longitude,
+                  String country, String admin1, Float distanceKm, Float distanceScore, Float score) {
         this.geoNameId = geoNameId;
-        this.name = name;
+        this.shortName = shortName;
         this.nameScore = nameScore;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -29,8 +36,21 @@ public class CityTo {
         this.score = score;
     }
 
+    @JsonProperty(value = "name", access = JsonProperty.Access.READ_ONLY)
     public String getName() {
-        return name;
+        return getShortName() + ", " + getAdmin1() + ", " + getCountry();
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getAdmin1() {
+        return admin1;
     }
 
     public Float getLatitude() {
@@ -76,7 +96,7 @@ public class CityTo {
     @Override
     public String toString() {
         return "CityTo{" +
-                "name='" + name + '\'' +
+                "name='" + shortName + '\'' +
                 ", nameScore=" + nameScore +
                 ", country='" + country + '\'' +
                 ", admin1='" + admin1 + '\'' +
