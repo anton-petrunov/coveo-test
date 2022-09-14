@@ -9,4 +9,10 @@
 
     <context:component-scan base-package="io.github.**.web"/>
 
+    <mvc:default-servlet-handler/>
+
+    <!-- Swagger2 -->
+    <bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration"/>
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+
 </beans>
