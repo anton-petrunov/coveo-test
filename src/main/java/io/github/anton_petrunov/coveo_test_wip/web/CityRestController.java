@@ -21,7 +21,9 @@ public class CityRestController {
     CityService service;
 
     @GetMapping
-    public List<CityTo> find(@RequestParam String q, @RequestParam Float latitude, @RequestParam Float longitude) {
+    public List<CityTo> find(@RequestParam String q,
+                             @RequestParam(required = false) Float latitude,
+                             @RequestParam(required = false) Float longitude) {
         return service.findAndScore(q, latitude, longitude);
     }
 }

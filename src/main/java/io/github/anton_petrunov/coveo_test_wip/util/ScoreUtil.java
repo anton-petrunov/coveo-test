@@ -10,8 +10,11 @@ public class ScoreUtil {
     }
 
     public static Float getScore(Float nameScore, Float distanceScore) {
-        float weightedNamedScore = 0.5F;
-        Float weightedDistanceScore = 1F - weightedNamedScore;
-        return weightedNamedScore * nameScore + weightedDistanceScore * distanceScore;
+        float weightedNameScore = 0.5F;
+        if (distanceScore == 0F) {
+            weightedNameScore = 1F;
+        }
+        Float weightedDistanceScore = 1F - weightedNameScore;
+        return weightedNameScore * nameScore + weightedDistanceScore * distanceScore;
     }
 }

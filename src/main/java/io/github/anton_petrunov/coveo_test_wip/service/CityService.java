@@ -20,16 +20,15 @@ public class CityService {
     InMemoryCityRepository repository;
 
     public List<CityTo> findAndScore(String name, Float searchPointLatitude, Float searchPointLongitude) {
-        return getScoredAndOrdered(
-                getScoredByDistance(
-                        getScoredByName(
-                                getCityTos(name),
-                                name
-                        ),
-                        searchPointLatitude,
-                        searchPointLongitude
-                )
-        );
+
+        if (searchPointLatitude == null || searchPointLongitude == null) {
+            return getScoredAndOrdered(getScoredByName(getCityTos(name), name));
+        } else {
+            return getScoredAndOrdered(getScoredByDistance(
+                    getScoredByName(getCityTos(name), name),
+                    searchPointLatitude,
+                    searchPointLongitude));
+        }
     }
 
     private List<CityTo> getCityTos(String name) {
@@ -37,14 +36,14 @@ public class CityService {
     }
 
     private List<CityTo> getScoredByName(List<CityTo> cityTos, String name) {
-        int quantityOfCompleteMatches = (int) cityTos.stream().filter(cityTo -> cityTo.getName().matches(name)).count();
-        Integer quantityOfPartialMatches = cityTos.size() - quantityOfCompleteMatches;
+        int completeMatchesQuantity = (int) cityTos.stream().filter(cityTo -> cityTo.getName().matches(name)).count();
+        Integer partialMatchesQuantity = cityTos.size() - completeMatchesQuantity;
 
         for (CityTo cityTo : cityTos) {
             if (cityTo.getName().equals(name)) {
                 cityTo.setNameScore(1F);
             } else {
-                cityTo.setNameScore(getNameScore(quantityOfPartialMatches));
+                cityTo.setNameScore(getNameScore(partialMatchesQuantity));
             }
         }
         return cityTos;
@@ -60,17 +59,14 @@ public class CityService {
                         cityTo.getLongitude()
                 )));
         cityTos.forEach(
-                cityTo -> cityTo.setDistanceScore(getDistanceScore(
-                        cityTo.getDistanceKm()
-                )));
+                cityTo -> cityTo.setDistanceScore(getDistanceScore(cityTo.getDistanceKm())));
         return cityTos;
     }
 
     private List<CityTo> getScoredAndOrdered(List<CityTo> cityTos) {
         cityTos.forEach(
                 cityTo -> cityTo.setScore(
-                        getScore(cityTo.getNameScore(), cityTo.getDistanceScore())
-                ));
+                        getScore(cityTo.getNameScore(), cityTo.getDistanceScore())));
         return cityTos.stream()
                 .sorted(Comparator.comparing(CityTo::getScore).reversed())
                 .collect(Collectors.toList());
