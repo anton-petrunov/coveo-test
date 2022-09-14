@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,19 +16,20 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryCityRepository {
 
-    private static final String TSV_PATH = "cities_canada-usa.tsv";
-
     private final List<City> cities = new ArrayList<>();
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryCityRepository.class);
 
-    {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(TSV_PATH))) {
+    @PostConstruct
+    public void init() {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(
+                "D:\\Java\\ProjectsForUltimateIDEA\\coveo-test-wip\\src\\main\\webapp\\WEB-INF\\cities_canada-usa.tsv"))) {
             bufferedReader.readLine();
             while (bufferedReader.ready()) {
                 cities.add(parse(bufferedReader.readLine()));
             }
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             e.printStackTrace();
         }
     }
