@@ -19,7 +19,7 @@ public class CityService {
     @Autowired
     InMemoryCityRepository repository;
 
-    public List<CityTo> findAndScore(String name, Float searchPointLatitude, Float searchPointLongitude) {
+    public List<CityTo> findScored(String name, Float searchPointLatitude, Float searchPointLongitude) {
 
         if (searchPointLatitude == null || searchPointLongitude == null) {
             return getScoredAndOrdered(getScoredByName(getCityTos(name), name));
@@ -32,7 +32,7 @@ public class CityService {
     }
 
     private List<CityTo> getCityTos(String name) {
-        return createTos(repository.findByPartOfName(name));
+        return createTos(repository.findByNamePart(name));
     }
 
     private List<CityTo> getScoredByName(List<CityTo> cityTos, String name) {

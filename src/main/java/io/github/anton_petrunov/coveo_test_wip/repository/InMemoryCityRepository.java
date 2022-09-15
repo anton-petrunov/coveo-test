@@ -28,14 +28,13 @@ public class InMemoryCityRepository {
             while (bufferedReader.ready()) {
                 cities.add(parse(bufferedReader.readLine()));
             }
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public List<City> findByPartOfName(String name) {
-        log.info("findByPartOfName '{}'", name);
+    public List<City> findByNamePart(String name) {
+        log.info("findByNamePart '{}'", name);
         return cities.stream()
                 .filter(city -> city.getName().toLowerCase().contains(name.toLowerCase()))
                 .collect(Collectors.toList());
