@@ -3,6 +3,8 @@ package io.github.anton_petrunov.coveo_test_wip.repository;
 import io.github.anton_petrunov.coveo_test_wip.model.City;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -22,8 +24,8 @@ public class InMemoryCityRepository {
 
     @PostConstruct
     public void init() {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(
-                "D:\\Java\\ProjectsForUltimateIDEA\\coveo-test-wip\\src\\main\\webapp\\WEB-INF\\cities_canada-usa.tsv"))) {
+        Resource resource = new ClassPathResource("cities_canada-usa.tsv");
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(resource.getFile()))) {
             bufferedReader.readLine();
             while (bufferedReader.ready()) {
                 cities.add(parse(bufferedReader.readLine()));
