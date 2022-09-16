@@ -37,13 +37,13 @@ public class CityService {
 
     private List<CityTo> getScoredByName(List<CityTo> cityTos, String name) {
         int completeMatchesQuantity = (int) cityTos.stream()
-                .filter(cityTo -> cityTo.getShortName().matches(name))
+                .filter(cityTo -> cityTo.getShortName().toLowerCase().matches(name.toLowerCase()))
                 .count();
 
         Integer partialMatchesQuantity = cityTos.size() - completeMatchesQuantity;
 
         for (CityTo cityTo : cityTos) {
-            if (cityTo.getShortName().equals(name)) {
+            if (cityTo.getShortName().equalsIgnoreCase(name)) {
                 cityTo.setNameScore(1F);
             } else {
                 cityTo.setNameScore(getNameScore(partialMatchesQuantity));
