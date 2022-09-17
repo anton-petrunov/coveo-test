@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = CityRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,10 +26,10 @@ public class CityRestController {
     CityService service;
 
     @GetMapping
-    public List<CityTo> find(@RequestParam String q,
-                             @RequestParam(required = false) Float latitude,
-                             @RequestParam(required = false) Float longitude) {
+    public Map<String, List<CityTo>> suggest(@RequestParam String q,
+                                             @RequestParam(required = false) Float latitude,
+                                             @RequestParam(required = false) Float longitude) {
         log.info("find by name {}, latitude {} and longitude {}", q, latitude, longitude);
-        return service.findScored(q, latitude, longitude);
+        return Map.of("suggestions", service.findScored(q, latitude, longitude));
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -118,7 +119,7 @@ class CityRestControllerTest {
 
     private static String write(List<CityTo> cityTos) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(cityTos);
+        return mapper.writeValueAsString(Map.of("suggestions", cityTos));
     }
 
     @PostConstruct
