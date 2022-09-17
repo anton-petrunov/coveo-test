@@ -1,4 +1,4 @@
-package io.github.anton_petrunov.coveo_test_wip.to;
+package io.github.anton_petrunov.coveo_test.to;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

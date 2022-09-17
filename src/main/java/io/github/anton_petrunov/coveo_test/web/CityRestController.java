@@ -1,7 +1,7 @@
-package io.github.anton_petrunov.coveo_test_wip.web;
+package io.github.anton_petrunov.coveo_test.web;
 
-import io.github.anton_petrunov.coveo_test_wip.service.CityService;
-import io.github.anton_petrunov.coveo_test_wip.to.CityTo;
+import io.github.anton_petrunov.coveo_test.service.CityService;
+import io.github.anton_petrunov.coveo_test.to.CityTo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

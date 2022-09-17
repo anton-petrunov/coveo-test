@@ -1,7 +1,7 @@
-package io.github.anton_petrunov.coveo_test_wip.service;
+package io.github.anton_petrunov.coveo_test.service;
 
-import io.github.anton_petrunov.coveo_test_wip.repository.InMemoryCityRepository;
-import io.github.anton_petrunov.coveo_test_wip.to.CityTo;
+import io.github.anton_petrunov.coveo_test.repository.InMemoryCityRepository;
+import io.github.anton_petrunov.coveo_test.to.CityTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,9 +9,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static io.github.anton_petrunov.coveo_test_wip.util.CityUtil.createTos;
-import static io.github.anton_petrunov.coveo_test_wip.util.DistanceUtil.calculateDistanceKm;
-import static io.github.anton_petrunov.coveo_test_wip.util.ScoreUtil.*;
+import static io.github.anton_petrunov.coveo_test.util.CityUtil.createTos;
+import static io.github.anton_petrunov.coveo_test.util.DistanceUtil.calculateDistanceKm;
+import static io.github.anton_petrunov.coveo_test.util.ScoreUtil.*;
 
 @Service
 public class CityService {
@@ -20,7 +20,6 @@ public class CityService {
     InMemoryCityRepository repository;
 
     public List<CityTo> findScored(String name, Float searchPointLatitude, Float searchPointLongitude) {
-
         if (searchPointLatitude == null || searchPointLongitude == null) {
             return getScoredAndOrdered(getScoredByName(getCityTos(name), name));
         } else {

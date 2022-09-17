@@ -1,9 +1,9 @@
-package io.github.anton_petrunov.coveo_test_wip.web;
+package io.github.anton_petrunov.coveo_test.web;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.anton_petrunov.coveo_test_wip.service.CityService;
-import io.github.anton_petrunov.coveo_test_wip.to.CityTo;
+import io.github.anton_petrunov.coveo_test.service.CityService;
+import io.github.anton_petrunov.coveo_test.to.CityTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

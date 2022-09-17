@@ -1,7 +1,7 @@
-package io.github.anton_petrunov.coveo_test_wip.util;
+package io.github.anton_petrunov.coveo_test.util;
 
-import io.github.anton_petrunov.coveo_test_wip.model.City;
-import io.github.anton_petrunov.coveo_test_wip.to.CityTo;
+import io.github.anton_petrunov.coveo_test.model.City;
+import io.github.anton_petrunov.coveo_test.to.CityTo;
 
 import java.util.List;
 import java.util.stream.Collectors;

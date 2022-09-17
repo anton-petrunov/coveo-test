@@ -1,4 +1,4 @@
-package io.github.anton_petrunov.coveo_test_wip.util;
+package io.github.anton_petrunov.coveo_test.util;
 
 public class DistanceUtil {
     public static Float calculateDistanceKm(float searchPointLatitude, float searchPointLongitude,

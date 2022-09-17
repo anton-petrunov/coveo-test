@@ -1,4 +1,4 @@
-package io.github.anton_petrunov.coveo_test_wip.model;
+package io.github.anton_petrunov.coveo_test.model;
 
 public class City {
     private final Integer geoNameId;

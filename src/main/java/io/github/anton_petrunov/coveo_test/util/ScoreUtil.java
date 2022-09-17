@@ -1,4 +1,4 @@
-package io.github.anton_petrunov.coveo_test_wip.util;
+package io.github.anton_petrunov.coveo_test.util;
 
 public class ScoreUtil {
     public static Float getNameScore(Integer quantity) {

@@ -1,6 +1,6 @@
-package io.github.anton_petrunov.coveo_test_wip.repository;
+package io.github.anton_petrunov.coveo_test.repository;
 
-import io.github.anton_petrunov.coveo_test_wip.model.City;
+import io.github.anton_petrunov.coveo_test.model.City;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;

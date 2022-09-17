@@ -1,6 +1,6 @@
-package io.github.anton_petrunov.coveo_test_wip.repository;
+package io.github.anton_petrunov.coveo_test.repository;
 
-import io.github.anton_petrunov.coveo_test_wip.model.City;
+import io.github.anton_petrunov.coveo_test.model.City;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
