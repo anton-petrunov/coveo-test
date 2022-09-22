@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,12 +19,12 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryCityRepository {
 
-    private final List<City> cities = new ArrayList<>();
-
     private static final Logger log = LoggerFactory.getLogger(InMemoryCityRepository.class);
 
+    private final List<City> cities = new ArrayList<>();
+
     @PostConstruct
-    public void init() {
+    public void init() throws FileNotFoundException {
         Resource resource = new ClassPathResource("cities_canada-usa.tsv");
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(resource.getFile()))) {
             bufferedReader.readLine();
@@ -32,6 +33,7 @@ public class InMemoryCityRepository {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new FileNotFoundException("Database file not found");
         }
     }
 
