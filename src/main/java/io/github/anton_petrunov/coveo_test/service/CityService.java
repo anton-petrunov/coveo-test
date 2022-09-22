@@ -17,16 +17,18 @@ import static io.github.anton_petrunov.coveo_test.util.ScoreUtil.*;
 public class CityService {
 
     @Autowired
-    InMemoryCityRepository repository;
+    private InMemoryCityRepository repository;
 
-    public List<CityTo> findScored(String name, Float searchPointLatitude, Float searchPointLongitude) {
-        if (searchPointLatitude == null || searchPointLongitude == null) {
-            return getScoredAndOrdered(getScoredByName(getCityTos(name), name));
+    public List<CityTo> findScored(String name, Float searchLatitude, Float searchLongitude) {
+        List<CityTo> cities = getCityTos(name);
+        List<CityTo> citiesScoredByName = getScoredByName(cities, name);
+
+        if (searchLatitude == null || searchLongitude == null) {
+            return getScoredAndOrdered(citiesScoredByName);
         } else {
-            return getScoredAndOrdered(getScoredByDistance(
-                    getScoredByName(getCityTos(name), name),
-                    searchPointLatitude,
-                    searchPointLongitude));
+            List<CityTo> citiesScoredByNameAndDistance = getScoredByDistance(citiesScoredByName,
+                    searchLatitude, searchLongitude);
+            return getScoredAndOrdered(citiesScoredByNameAndDistance);
         }
     }
 
@@ -51,12 +53,11 @@ public class CityService {
         return cityTos;
     }
 
-    private List<CityTo> getScoredByDistance(List<CityTo> cityTos, Float searchPointLatitude,
-                                             Float searchPointLongitude) {
+    private List<CityTo> getScoredByDistance(List<CityTo> cityTos, Float searchLatitude, Float searchLongitude) {
         cityTos.forEach(
                 cityTo -> cityTo.setDistanceKm(calculateDistanceKm(
-                        searchPointLatitude,
-                        searchPointLongitude,
+                        searchLatitude,
+                        searchLongitude,
                         cityTo.getLatitude(),
                         cityTo.getLongitude()
                 )));
